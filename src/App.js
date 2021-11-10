@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Paper } from "@mui/material";
+import Navbar from "./components/Navbar";
+import CenterDiv from "./components/CenterDiv";
 
-function App() {
+export default function App() {
+  const [defTheme, setDefTheme] = useState("light");
+  const changeTheme = () => {
+    setDefTheme(defTheme === "light" ? "dark" : "light");
+  };
+  const theme = createTheme({
+    palette: {
+      mode: defTheme,
+    },
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <ThemeProvider theme={theme}>
+        <Paper style={{ minHeight: "100vh" }}>
+          <Navbar defTheme={defTheme} changeTheme={changeTheme} />
+          <CenterDiv defTheme={defTheme} />
+        </Paper>
+      </ThemeProvider>
+    </>
   );
 }
-
-export default App;
