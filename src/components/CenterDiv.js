@@ -17,7 +17,7 @@ export default function CenterDiv({ defTheme }) {
   const updateArr = () => {
     let lengths = [];
     let len = [];
-    for (let i = 0; i < 154; i++) {
+    for (let i = 0; i < 10; i++) {
       len.push(0);
       lengths.push(Math.floor(Math.random() * (68 - 20 + 1)) + 20 + "vh");
     }
@@ -115,7 +115,7 @@ export default function CenterDiv({ defTheme }) {
                   width: "2em",
                   border: "1px solid black",
                 }}
-              />
+              ></Box>
             ))}
           </Box>
         )}

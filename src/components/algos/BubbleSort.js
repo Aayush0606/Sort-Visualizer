@@ -25,12 +25,14 @@ export default async function BubbleSort({ myArr, sortArr, testSetter }) {
   };
 
   for (let i = 0; i < myArr.length - 1; i++) {
-    for (let j = 0; j < myArr.length - i; j++) {
-      const res = setTimeout(async () => {
-        await swap(j);
-        await barChange(i, j);
-      }, 1000);
-    }
+    setTimeout(() => {
+      for (let j = 0; j < myArr.length - i - 1; j++) {
+        const res = setTimeout(async () => {
+          await swap(j);
+          await barChange(i, j);
+        }, 100 * j);
+      }
+    }, 100 * i * myArr.length);
   }
   sortArr(myArr);
 }

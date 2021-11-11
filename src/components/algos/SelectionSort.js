@@ -22,15 +22,18 @@ export default async function SelectionSort({ myArr, sortArr, testSetter }) {
       test[j] = 1;
     }
     testSetter(test);
+    swap(i, j);
   };
 
   for (let i = 0; i < myArr.length - 1; i++) {
-    for (let j = i + 1; j < myArr.length; j++) {
-      setTimeout(async () => {
-        await swap(i, j);
-        await barChange(i, j);
-      }, 2000);
-    }
+    setTimeout(() => {
+      for (let j = i + 1; j < myArr.length; j++) {
+        setTimeout(async () => {
+          await swap(i, j);
+          await barChange(i, j);
+        }, 100 * j);
+      }
+    }, 100 * i * myArr.length);
   }
   sortArr(myArr);
 }
