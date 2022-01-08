@@ -5,7 +5,7 @@ import Navbar from "./components/Navbar";
 import CenterDiv from "./components/CenterDiv";
 
 export default function App() {
-  const [defTheme, setDefTheme] = useState("light");
+  const [defTheme, setDefTheme] = useState("dark");
   const changeTheme = () => {
     setDefTheme(defTheme === "light" ? "dark" : "light");
   };

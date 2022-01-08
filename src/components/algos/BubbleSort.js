@@ -1,38 +1,21 @@
-export default async function BubbleSort({ myArr, sortArr, testSetter }) {
-  let test = new Array(myArr.length).fill(0);
-  const swap = async (j) => {
-    if (myArr[j] > myArr[j + 1]) {
-      let temp = myArr[j];
-      myArr[j] = myArr[j + 1];
-      myArr[j + 1] = temp;
+export default async function BubbleSort({ swap, delayFunc }) {
+  const BubbleSortFunc = async (arr) => {
+    for (let i = 0; i < arr.length - 1; i++) {
+      for (let j = 0; j < arr.length - i - 1; j++) {
+        arr[j].style.background = "#b17aac";
+        arr[j + 1].style.background = "#b17aac";
+        if (parseInt(arr[j].style.height) > parseInt(arr[j + 1].style.height)) {
+          swap(arr[j + 1], arr[j]);
+        }
+        await delayFunc();
+        arr[j].style.background = "purple";
+        arr[j + 1].style.background = "purple";
+      }
+      arr[arr.length - i - 1].style.background = "red";
     }
+    arr[0].style.background = "red";
   };
 
-  const barChange = async (i, j) => {
-    let test = new Array(myArr.length).fill(0);
-    if (i !== 0) {
-      for (let k = myArr.length - i; k < myArr.length; k++) {
-        test[k] = 3;
-      }
-    }
-    if (i === myArr.length - 2) {
-      test = new Array(myArr.length).fill(3);
-    } else {
-      test[j] = 1;
-      test[j + 1] = 1;
-    }
-    testSetter(test);
-  };
-
-  for (let i = 0; i < myArr.length - 1; i++) {
-    setTimeout(() => {
-      for (let j = 0; j < myArr.length - i - 1; j++) {
-        const res = setTimeout(async () => {
-          await swap(j);
-          await barChange(i, j);
-        }, 100 * j);
-      }
-    }, 100 * i * myArr.length);
-  }
-  sortArr(myArr);
+  let arr = document.querySelectorAll(".bar");
+  BubbleSortFunc(arr);
 }
