@@ -1,4 +1,4 @@
-export default async function BubbleSort({ swap, delayFunc }) {
+export default async function BubbleSort({ setDisable, swap, delayFunc }) {
   const BubbleSortFunc = async (arr) => {
     for (let i = 0; i < arr.length - 1; i++) {
       for (let j = 0; j < arr.length - i - 1; j++) {
@@ -15,7 +15,8 @@ export default async function BubbleSort({ swap, delayFunc }) {
     }
     arr[0].style.background = "red";
   };
-
+  setDisable(true);
   let arr = document.querySelectorAll(".bar");
-  BubbleSortFunc(arr);
+  await BubbleSortFunc(arr);
+  setDisable(false);
 }

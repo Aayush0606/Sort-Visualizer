@@ -1,4 +1,4 @@
-export default async function MergeSort({ swap, delayFunc }) {
+export default async function MergeSort({ setDisable, swap, delayFunc }) {
   const MergeSortHelperFunc = async (arr, start, mid, end) => {
     let s1 = mid - start + 1;
     let s2 = end - mid;
@@ -72,7 +72,8 @@ export default async function MergeSort({ swap, delayFunc }) {
     await MergeSortFunc(arr, mid + 1, end);
     await MergeSortHelperFunc(arr, start, mid, end);
   };
-
+  setDisable(true);
   let arr = document.querySelectorAll(".bar");
   await MergeSortFunc(arr, 0, arr.length - 1);
+  setDisable(false);
 }

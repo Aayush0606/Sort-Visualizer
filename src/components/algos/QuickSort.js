@@ -1,4 +1,4 @@
-export default async function QuickSort({ swap, delayFunc }) {
+export default async function QuickSort({ setDisable, swap, delayFunc }) {
   const QuicSortHeplerFunc = async (arr, left, right) => {
     let pivotElement = parseInt(arr[right].style.height);
     arr[right].style.background = "red";
@@ -40,7 +40,8 @@ export default async function QuickSort({ swap, delayFunc }) {
       }
     }
   };
-
+  setDisable(true);
   let arr = document.querySelectorAll(".bar");
-  QuickSortFunc(arr, 0, arr.length - 1);
+  await QuickSortFunc(arr, 0, arr.length - 1);
+  setDisable(false);
 }

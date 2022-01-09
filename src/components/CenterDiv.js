@@ -7,22 +7,33 @@ import {
   Slider,
   Typography,
 } from "@mui/material";
-import SelectionSort from "./algos/SelectionSort";
-import BubbleSort from "./algos/BubbleSort";
-import MergeSort from "./algos/MergeSort";
-import QuickSort from "./algos/QuickSort";
+import AlgoButtons from "./AlgoButtons";
 
-export default function CenterDiv({ defTheme }) {
+export default function CenterDiv({ isPhone, defTheme }) {
   const [myArr, setMyArr] = useState([]);
   const [reRender, setReRender] = useState(0);
   const [loading, setLoading] = useState(true);
   const [value, setValue] = useState(20);
   const [delay, setDelay] = useState(150);
+  const [toggleDisable, setToggleDisable] = useState(false);
+
+  const setDisable = (isDisable) => {
+    setToggleDisable(isDisable);
+  };
+
   function delayFunc() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve("");
       }, delay);
+    });
+  }
+
+  function ff(f) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve("");
+      }, f);
     });
   }
 
@@ -67,18 +78,27 @@ export default function CenterDiv({ defTheme }) {
 
   useEffect(() => {
     updateArr();
+    // eslint-disable-next-line
   }, [reRender, value]);
 
   return (
     <>
       <Container fixed style={{ marginTop: "2em" }}>
-        <Box sx={{ display: "flex", justifyContent: "space-evenly" }}>
-          <Box sx={{ width: "100%", marginX: "1em" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            flexDirection: isPhone === true ? "column" : "row",
+          }}
+        >
+          <Box sx={{ width: "100%", marginX: isPhone === true ? "" : "10px" }}>
             <Typography gutterBottom>Size: {value}</Typography>
             <Slider
-              min={5}
+              disabled={toggleDisable}
+              size={isPhone === true ? "small" : "large"}
+              min={isPhone === true ? 5 : 10}
               step={5}
-              max={300}
+              max={isPhone === true ? 100 : 250}
               defaultValue={value}
               color={defTheme === "light" ? "primary" : "secondary"}
               onChange={handleSizeSliderChange}
@@ -89,9 +109,11 @@ export default function CenterDiv({ defTheme }) {
           <Box sx={{ width: "100%" }}>
             <Typography gutterBottom>Speed: {delay}ms</Typography>
             <Slider
+              disabled={toggleDisable}
+              size={isPhone === true ? "small" : "large"}
               min={20}
               step={10}
-              max={300}
+              max={200}
               defaultValue={delay}
               color={defTheme === "light" ? "primary" : "secondary"}
               onChange={handleDelaySliderChange}
@@ -104,57 +126,28 @@ export default function CenterDiv({ defTheme }) {
           sx={{
             display: "flex",
             justifyContent: "space-evenly",
-          }}
-        >
-          <ButtonGroup
-            size="large"
-            variant="outline"
-            aria-label="outlined primary button group"
-          >
-            <Button
-              onClick={() => SelectionSort({ swap, delayFunc })}
-              variant="outlined"
-              color={defTheme === "light" ? "primary" : "secondary"}
-            >
-              Selection
-            </Button>
-            <Button
-              onClick={() => BubbleSort({ swap, delayFunc })}
-              variant="outlined"
-              color={defTheme === "light" ? "primary" : "secondary"}
-            >
-              Bubble
-            </Button>
-            <Button
-              onClick={() => MergeSort({ swap, delayFunc })}
-              variant="outlined"
-              color={defTheme === "light" ? "primary" : "secondary"}
-            >
-              Merge
-            </Button>
-            <Button
-              onClick={() => QuickSort({ swap, delayFunc })}
-              variant="outlined"
-              color={defTheme === "light" ? "primary" : "secondary"}
-            >
-              Quick
-            </Button>
-          </ButtonGroup>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-evenly",
-            marginBottom: "2em",
+            alignItems: "center",
+            flexDirection: isPhone === true ? "column" : "row",
           }}
         >
           <Button
+            disabled={toggleDisable}
+            sx={{ marginY: isPhone === true ? "10px" : "" }}
+            size={isPhone === true ? "small" : "large"}
             onClick={() => setReRender(reRender + 1)}
             variant="outlined"
             color={defTheme === "light" ? "primary" : "secondary"}
           >
             Generate New
           </Button>
+          <AlgoButtons
+            toggleDisable={toggleDisable}
+            isPhone={isPhone}
+            defTheme={defTheme}
+            swap={swap}
+            delayFunc={delayFunc}
+            setDisable={setDisable}
+          />
         </Box>
         {!loading && (
           <Box
