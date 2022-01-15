@@ -1,3 +1,3 @@
 # Sort Visualizer
 
-Working site on [Sort Visualizer](https://github.com/facebook/create-react-app).
+Working site on [Sort Visualizer](competent-ptolemy-5fbe80.netlify.app/).
